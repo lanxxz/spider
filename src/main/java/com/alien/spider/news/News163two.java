@@ -38,7 +38,8 @@ public class News163two {
     private int startNum;
 
     public static void main(String[] args) {
-        String url = "https://news.163.com/19/0421/08/ED9AODCP0001875N.html";
+//        String url = "https://news.163.com/19/0421/08/ED9AODCP0001875N.html";
+        String url = "https://news.163.com/19/0421/21/EDAMGGN50001875P.html";
         int index = url.lastIndexOf("/");
         String param = url.substring(index).split("\\.")[0];
         System.out.println(param);
