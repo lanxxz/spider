@@ -7,6 +7,7 @@ import com.alien.spider.domain.HttpResult;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.apache.http.HttpStatus;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -49,7 +50,7 @@ public class News163two {
 
         HttpResult httpResult = news163.getData(commentUrl);
 
-        if (httpResult != null && httpResult.getCode() == 200) {
+        if (httpResult != null && httpResult.getCode() == HttpStatus.SC_OK) {
             news163.parse(httpResult.getContent());
             news163.save();
         }
@@ -135,9 +136,9 @@ public class News163two {
         //获取下一页数据并解析
         if (startNum < newListSize) {
             startNum += 30;
-            //10s 内随机休眠
+            //5s 内随机休眠
             Random random = new Random();
-            long sleep = random.nextInt(5000);
+            int sleep = random.nextInt(5000);
             try {
                 Thread.sleep(sleep);
             } catch (InterruptedException e) {
@@ -146,7 +147,7 @@ public class News163two {
 
             String nextUrl = getNextUrl();
             HttpResult httpResult = getData(nextUrl);
-            if (httpResult != null && httpResult.getCode() == 200) {
+            if (httpResult != null && httpResult.getCode() == HttpStatus.SC_OK) {
                 parse(httpResult.getContent());
             }
         }
